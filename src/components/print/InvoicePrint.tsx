@@ -129,7 +129,7 @@ export const InvoicePrint = forwardRef<HTMLDivElement, InvoicePrintProps>(
           
           {/* Powered By Footer */}
           <div className="text-center mt-4 pt-2 border-t border-gray-300">
-            <p className="text-xs text-gray-500" dir="ltr">Powered by JahaSoft Ltd.</p>
+            <p className="text-xs text-gray-500" dir="ltr">Powered by JuttSoft Ltd.</p>
           </div>
         </div>
       </div>

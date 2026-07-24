@@ -69,7 +69,7 @@ export const ThermalPrint = forwardRef<HTMLDivElement, ThermalPrintProps>(
         <div className="text-center mt-4 pt-2 border-t border-dashed border-black">
           <p className="text-[10px]">Thank you for your purchase!</p>
           <p className="text-[9px] text-gray-600">شکریہ</p>
-          <p className="text-[9px] text-gray-500 mt-2">Powered by JahaSoft Ltd.</p>
+          <p className="text-[9px] text-gray-500 mt-2">Powered by JuttSoft Ltd.</p>
         </div>
       </div>
     );

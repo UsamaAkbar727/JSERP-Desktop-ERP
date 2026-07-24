@@ -66,7 +66,7 @@ export default function LoginPage() {
               <Lock className="w-6 h-6 text-white" />
             </div>
           </div>
-          <CardTitle className="text-2xl">JSERP</CardTitle>
+          <CardTitle className="text-2xl">JuttSoft ERP</CardTitle>
           <CardDescription>Sign in to your account</CardDescription>
         </CardHeader>
         

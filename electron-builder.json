@@ -1,7 +1,7 @@
 {
-  "appId": "com.jahasoft.erp-pro",
-  "productName": "JSERP",
-  "copyright": "Copyright © 2026 JahaSoft",
+  "appId": "com.juttsoft.erp-pro",
+  "productName": "JuttSoft ERP",
+  "copyright": "Copyright © 2026 JuttSoft",
   "npmRebuild": true,
   "buildDependenciesFromSource": false,
   "nodeGypRebuild": false,

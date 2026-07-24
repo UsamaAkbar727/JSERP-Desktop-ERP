@@ -1,11 +1,11 @@
 {
-  "name": "erp-pro-desktop",
-  "productName": "JSERP",
+  "name": "juttsoft-erp-desktop",
+  "productName": "JuttSoft ERP",
   "private": true,
   "version": "1.0.0",
   "type": "module",
   "main": "dist-electron/main.js",
-  "homepage": "https://www.jahasoft.com/erp-pro",
+  "homepage": "https://juttsoft.com",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
@@ -133,6 +133,6 @@
     "vitest": "^3.2.4",
     "wait-on": "^9.0.3"
   },
-  "author": "JahaSoft <support@jahasoft.com>",
-  "description": "JSERP desktop application — business management and POS."
+  "author": "JuttSoft",
+  "description": "JuttSoft ERP desktop application — business management and POS."
 }

@@ -6,7 +6,7 @@ import axios, { AxiosError } from 'axios';
  */
 
 // Configure your license server URL here
-const LICENSE_API_URL = process.env.LICENSE_API_URL || 'https://jserp.jahasoft.com/api';
+const LICENSE_API_URL = process.env.LICENSE_API_URL || 'https://api.juttsoft.com/api';
 const API_TIMEOUT = 30000; // 30 seconds
 
 export interface LicenseVerificationRequest {

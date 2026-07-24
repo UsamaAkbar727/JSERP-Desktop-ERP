@@ -395,7 +395,7 @@ export default function LicenseActivation() {
                 Activate License
               </CardTitle>
               <CardDescription className="text-slate-600 dark:text-slate-400">
-                Enter your license key to activate JSERP
+                Enter your license key to activate JuttSoft ERP
               </CardDescription>
             </CardHeader>
             <CardContent className="space-y-6">
@@ -471,7 +471,7 @@ export default function LicenseActivation() {
                 <p>
                   Manage your licenses at: {' '}
                   <a 
-                    href="https://jserp.jahasoft.com/" 
+                    href="https://juttsoft.com/" 
                     target="_blank"
                     rel="noopener noreferrer"
                     className="text-blue-600 hover:text-blue-700 font-medium hover:underline"
