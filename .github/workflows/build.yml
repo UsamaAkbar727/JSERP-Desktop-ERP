@@ -1,0 +1,162 @@
+name: Build and Release
+
+on:
+  push:
+    branches:
+      - main
+    tags:
+      - 'v*'
+  pull_request:
+    branches:
+      - main
+
+env:
+  NODE_VERSION: '18'
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    name: Test & Lint
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run tests
+        run: npm run test
+
+      - name: Run linting
+        run: npm run lint
+
+  build-windows:
+    needs: test
+    runs-on: windows-latest
+    name: Build Windows Installer
+    if: startsWith(github.ref, 'refs/tags/v') || github.event_name == 'push' && github.ref == 'refs/heads/main'
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build application
+        env:
+          NODE_ENV: production
+        run: npm run build:app
+
+      - name: Build Windows installer
+        run: npm run dist:win
+
+      - name: List release artifacts
+        shell: pwsh
+        run: |
+          Get-ChildItem release/ -Recurse -Force
+
+      - name: Upload installer artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: erp-pro-installer-windows
+          path: release/*.exe
+          retention-days: 30
+          if-no-files-found: error
+
+      - name: Extract version from tag
+        id: version
+        run: |
+          $version = "${{ github.ref }}" -replace 'refs/tags/v', ''
+          echo "VERSION=$version" | Out-File -FilePath $env:GITHUB_OUTPUT -Encoding utf8 -Append
+        if: startsWith(github.ref, 'refs/tags/v')
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v1
+        if: startsWith(github.ref, 'refs/tags/v')
+        with:
+          files: release/*.exe
+          draft: false
+          prerelease: false
+          generate_release_notes: true
+          body: |
+            # JSERP v${{ steps.version.outputs.VERSION }}
+
+            Windows installer for JSERP Desktop application.
+
+            ## Installation Instructions
+
+            1. Download the installer from the assets below
+            2. Run `JSERP Setup.exe`
+            3. Follow the installation wizard
+            4. Launch JSERP from your Start Menu or Desktop shortcut
+
+            ## System Requirements
+
+            - Windows 10 or later
+            - 4GB RAM (minimum)
+            - 500MB disk space
+            - Internet connection (for license activation)
+
+            ## What's New
+
+            See [CHANGELOG.md](https://github.com/${{ github.repository }}/blob/main/CHANGELOG.md) for detailed changes.
+
+            ## Support
+
+            For issues or questions, please visit our [GitHub Issues](https://github.com/${{ github.repository }}/issues) page.
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Upload to Release Summary
+        if: startsWith(github.ref, 'refs/tags/v')
+        run: |
+          $artifactPath = Get-ChildItem -Path "release/" -Filter "*.exe" | Select-Object -First 1
+          if ($artifactPath) {
+            $fileSize = "{0:N2}" -f ($artifactPath.Length / 1MB)
+            Add-Content -Path $env:GITHUB_STEP_SUMMARY -Value @"
+          ## Build Summary
+
+          ✅ Windows Installer Built Successfully
+
+          **Version:** ${{ steps.version.outputs.VERSION }}
+          **Installer:** $($artifactPath.Name)
+          **File Size:** $fileSize MB
+          **Release:** [View Release](https://github.com/${{ github.repository }}/releases/tag/v${{ steps.version.outputs.VERSION }})
+
+          The installer has been uploaded to GitHub Releases and is ready for distribution.
+          "@
+          }
+
+  cleanup-on-failure:
+    needs: build-windows
+    runs-on: ubuntu-latest
+    if: failure()
+    name: Notify Build Failure
+
+    steps:
+      - name: Create issue on failure
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const runUrl = `${context.serverUrl}/${context.repo.owner}/${context.repo.repo}/actions/runs/${context.runId}`;
+            github.rest.issues.createComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.payload.pull_request?.number,
+              body: `❌ Build failed. [Check the workflow run](${runUrl})`
+            });
+        if: github.event_name == 'pull_request'

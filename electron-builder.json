@@ -1,0 +1,94 @@
+{
+  "appId": "com.jahasoft.erp-pro",
+  "productName": "JSERP",
+  "copyright": "Copyright © 2026 JahaSoft",
+  "npmRebuild": true,
+  "buildDependenciesFromSource": false,
+  "nodeGypRebuild": false,
+  "directories": {
+    "app": ".",
+    "output": "release"
+  },
+  "files": [
+    "dist/**/*",
+    "dist-electron/**/*",
+    "!dist-electron/node_modules",
+    "dist-electron/node_modules/better-sqlite3/**/*",
+    "package.json"
+  ],
+  "asarUnpack": [
+    "dist-electron/node_modules/better-sqlite3/**/*"
+  ],
+  "extraResources": [
+    {
+      "from": "dist-electron/node_modules/better-sqlite3",
+      "to": "app.asar.unpacked/dist-electron/node_modules/better-sqlite3",
+      "filter": ["**/*"]
+    }
+  ],
+  "mac": {
+    "category": "public.app-category.business",
+    "target": [
+      {
+        "target": "dmg",
+        "arch": ["x64", "arm64"]
+      }
+    ],
+    "icon": "public/icon.icns"
+  },
+  "win": {
+    "target": [
+      {
+        "target": "nsis",
+        "arch": ["x64"]
+      }
+    ],
+    "icon": "build/icon.ico",
+    "forceCodeSigning": false,
+    "signAndEditExecutable": false
+  },
+  "linux": {
+    "target": [
+      {
+        "target": "AppImage",
+        "arch": ["x64"]
+      },
+      {
+        "target": "deb",
+        "arch": ["x64"]
+      }
+    ],
+    "icon": "public/icon.png",
+    "category": "Office"
+  },
+  "nsis": {
+    "oneClick": false,
+    "perMachine": false,
+    "allowToChangeInstallationDirectory": true,
+    "createDesktopShortcut": true,
+    "createStartMenuShortcut": true,
+    "installerIcon": "build/installerIcon.ico",
+    "uninstallerIcon": "build/uninstallerIcon.ico",
+    "installerHeader": "build/installerHeader.png",
+    "installerSidebar": "build/installerSidebar.png",
+    "uninstallerSidebar": "build/uninstallerSidebar.png",
+    "license": "build/license.txt",
+    "differentialPackage": false
+  },
+  "compression": "normal",
+  "fileAssociations": [
+    {
+      "ext": "erp",
+      "name": "JSERP Data File",
+      "description": "JSERP data file (export/import)",
+      "role": "Owner",
+      "icon": "build/icon.ico"
+    }
+  ],
+  "publish": [
+    {
+      "provider": "generic",
+      "url": "https://your-update-server.com/updates/"
+    }
+  ]
+}

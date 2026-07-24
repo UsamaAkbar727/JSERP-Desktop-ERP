@@ -1,0 +1,353 @@
+/* Modern ERP System Design - Professional & Clean */
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  /* RTL Support */
+  [dir="rtl"] {
+    direction: rtl;
+  }
+
+  [dir="ltr"] {
+    direction: ltr;
+  }
+
+  :root {
+    /* Modern Light Theme */
+    --background: 220 20% 97%;
+    --foreground: 224 71% 4%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 224 71% 4%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 224 71% 4%;
+
+    /* Primary - Vibrant Blue */
+    --primary: 221 83% 53%;
+    --primary-foreground: 0 0% 100%;
+
+    /* Secondary - Cool Gray */
+    --secondary: 220 14% 96%;
+    --secondary-foreground: 224 71% 4%;
+
+    /* Muted */
+    --muted: 220 14% 96%;
+    --muted-foreground: 220 9% 46%;
+
+    /* Accent - Indigo */
+    --accent: 243 75% 59%;
+    --accent-foreground: 0 0% 100%;
+
+    /* Semantic */
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 100%;
+
+    --success: 142 76% 36%;
+    --success-foreground: 0 0% 100%;
+
+    --warning: 38 92% 50%;
+    --warning-foreground: 0 0% 0%;
+
+    --info: 199 89% 48%;
+    --info-foreground: 0 0% 100%;
+
+    /* UI Elements */
+    --border: 220 13% 91%;
+    --input: 220 13% 91%;
+    --ring: 221 83% 53%;
+
+    --radius: 0.5rem;
+
+    /* Sidebar - Light Theme */
+    --sidebar-background: 220 14% 96%;
+    --sidebar-foreground: 224 71% 4%;
+    --sidebar-primary: 221 83% 53%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 220 14% 91%;
+    --sidebar-accent-foreground: 224 71% 4%;
+    --sidebar-border: 220 13% 91%;
+    --sidebar-ring: 221 83% 53%;
+    --sidebar-muted: 220 9% 46%;
+
+    /* Table */
+    --table-header: 220 14% 96%;
+    --table-row-hover: 220 14% 98%;
+    --table-border: 220 13% 91%;
+
+    /* Glass effect */
+    --glass-bg: 0 0% 100% / 0.8;
+    --glass-border: 0 0% 100% / 0.2;
+
+    /* Gradients */
+    --gradient-primary: linear-gradient(135deg, hsl(221 83% 53%), hsl(243 75% 59%));
+    --gradient-success: linear-gradient(135deg, hsl(142 76% 36%), hsl(160 84% 39%));
+    --gradient-warning: linear-gradient(135deg, hsl(38 92% 50%), hsl(25 95% 53%));
+    --gradient-danger: linear-gradient(135deg, hsl(0 84% 60%), hsl(350 89% 60%));
+  }
+
+  .dark {
+    /* Modern Dark Theme */
+    --background: 224 71% 4%;
+    --foreground: 220 14% 96%;
+
+    --card: 224 50% 8%;
+    --card-foreground: 220 14% 96%;
+
+    --popover: 224 50% 8%;
+    --popover-foreground: 220 14% 96%;
+
+    --primary: 221 83% 53%;
+    --primary-foreground: 0 0% 100%;
+
+    --secondary: 224 50% 12%;
+    --secondary-foreground: 220 14% 96%;
+
+    --muted: 224 50% 12%;
+    --muted-foreground: 220 9% 60%;
+
+    --accent: 243 75% 59%;
+    --accent-foreground: 0 0% 100%;
+
+    --destructive: 0 72% 51%;
+    --destructive-foreground: 0 0% 100%;
+
+    --success: 142 71% 45%;
+    --success-foreground: 0 0% 100%;
+
+    --warning: 38 92% 50%;
+    --warning-foreground: 0 0% 0%;
+
+    --info: 199 89% 48%;
+    --info-foreground: 0 0% 100%;
+
+    --border: 224 50% 15%;
+    --input: 224 50% 15%;
+    --ring: 221 83% 53%;
+
+    --sidebar-background: 224 71% 3%;
+    --sidebar-foreground: 220 14% 96%;
+    --sidebar-primary: 221 83% 53%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 224 50% 10%;
+    --sidebar-accent-foreground: 0 0% 100%;
+    --sidebar-border: 224 50% 10%;
+    --sidebar-ring: 221 83% 53%;
+    --sidebar-muted: 220 9% 50%;
+
+    --table-header: 224 50% 10%;
+    --table-row-hover: 224 50% 8%;
+    --table-border: 224 50% 15%;
+
+    --glass-bg: 224 50% 8% / 0.8;
+    --glass-border: 0 0% 100% / 0.1;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  html {
+    font-family: 'Inter', system-ui, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  body {
+    @apply bg-background text-foreground antialiased;
+    font-feature-settings: "cv11", "ss01";
+  }
+
+  /* RTL Support for Urdu */
+  [dir="rtl"] {
+    font-family: 'Noto Nastaliq Urdu', 'Inter', system-ui, sans-serif;
+  }
+
+  /* Custom scrollbar */
+  ::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+
+  ::-webkit-scrollbar-track {
+    @apply bg-transparent;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    @apply bg-muted-foreground/20 rounded-full;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    @apply bg-muted-foreground/30;
+  }
+}
+
+@layer components {
+  /* Modern Card */
+  .card-stats {
+    @apply bg-card border border-border rounded-xl p-4 md:p-5 shadow-sm hover:shadow-md transition-all duration-200;
+  }
+
+  .card-modern {
+    @apply bg-card border border-border rounded-xl shadow-sm;
+  }
+
+  /* Glass morphism card */
+  .card-glass {
+    @apply rounded-xl border backdrop-blur-xl;
+    background: hsl(var(--glass-bg));
+    border-color: hsl(var(--glass-border));
+  }
+
+  /* Table container */
+  .table-container {
+    @apply bg-card border border-border rounded-xl overflow-hidden shadow-sm;
+  }
+
+  /* Status badges - modern pill style */
+  .badge-paid {
+    @apply bg-success/15 text-success font-medium;
+  }
+
+  .badge-partial {
+    @apply bg-warning/15 text-warning font-medium;
+  }
+
+  .badge-due {
+    @apply bg-destructive/15 text-destructive font-medium;
+  }
+
+  .badge-active {
+    @apply bg-success/15 text-success font-medium;
+  }
+
+  .badge-inactive {
+    @apply bg-muted text-muted-foreground font-medium;
+  }
+
+  /* Currency input */
+  .input-currency {
+    @apply text-right font-mono tabular-nums;
+  }
+
+  /* Page header */
+  .page-header {
+    @apply flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 sm:gap-4 pb-4 md:pb-6 border-b border-border mb-4 md:mb-6;
+  }
+
+  .page-title {
+    @apply text-xl md:text-2xl font-bold text-foreground tracking-tight;
+  }
+
+  /* Quick action card */
+  .btn-quick-action {
+    @apply flex flex-col items-center justify-center gap-2 p-4 md:p-5 bg-card border border-border rounded-xl hover:bg-secondary hover:border-primary/20 transition-all duration-200 cursor-pointer;
+  }
+
+  .btn-quick-action:hover .quick-action-icon {
+    @apply scale-110;
+  }
+
+  /* Gradient button */
+  .btn-gradient {
+    @apply text-white font-medium rounded-lg px-4 py-2 transition-all duration-200 hover:opacity-90 hover:shadow-lg;
+    background: var(--gradient-primary);
+  }
+
+  /* POS styles */
+  .pos-item-card {
+    @apply bg-card border border-border rounded-lg p-3 cursor-pointer hover:bg-accent hover:border-primary hover:shadow-md transition-all duration-150;
+  }
+
+  .pos-item-card:hover * {
+    @apply text-accent-foreground;
+  }
+
+  .pos-item-card:hover .text-primary {
+    @apply text-accent-foreground;
+  }
+
+  .pos-item-card.selected {
+    @apply border-primary bg-primary/5;
+  }
+
+  .pos-cart-item {
+    @apply flex items-center justify-between py-3 border-b border-border last:border-0;
+  }
+
+  /* Sidebar nav item */
+  .nav-item {
+    @apply flex items-center gap-3 px-3 py-2.5 rounded-lg transition-all duration-150 text-sidebar-foreground/80 hover:bg-sidebar-accent hover:text-sidebar-accent-foreground;
+  }
+
+  .nav-item.active {
+    @apply bg-sidebar-primary text-sidebar-primary-foreground shadow-md;
+  }
+}
+
+@layer utilities {
+  /* Currency formatting */
+  .currency {
+    @apply font-mono tabular-nums tracking-tight;
+  }
+
+  /* Positive/negative amounts */
+  .amount-positive {
+    @apply text-success;
+  }
+
+  .amount-negative {
+    @apply text-destructive;
+  }
+
+  /* Gradient text */
+  .text-gradient {
+    @apply bg-clip-text text-transparent;
+    background-image: var(--gradient-primary);
+  }
+
+  /* Animation utilities */
+  .animate-in {
+    animation: fadeIn 0.2s ease-out;
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-4px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* Focus ring */
+  .focus-ring {
+    @apply focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 focus:ring-offset-background;
+  }
+
+  /* Mobile-friendly utilities */
+  .text-responsive {
+    @apply text-sm md:text-base;
+  }
+
+  .heading-responsive {
+    @apply text-lg md:text-xl lg:text-2xl;
+  }
+
+  .container-responsive {
+    @apply px-4 md:px-6 lg:px-8;
+  }
+
+  /* Hide scrollbar but keep functionality */
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+}
